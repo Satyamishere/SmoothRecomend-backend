@@ -10,11 +10,32 @@ const app = express();
 
 app.use(express.json());
 
-// Allow your eventual frontend Vercel URL
+// List of allowed origins
+const allowedOrigins = [
+    'http://localhost:5173', 
+    'http://localhost:3000',
+    'https://smooth-recomend-frontend.vercel.app' // Your live frontend URL
+];
+
+// Explicit dynamic CORS handling
 app.use(cors({
-    origin: ['http://localhost:5173', 'http://localhost:3000'], // We will add production URL here later
-    credentials: true
+    origin: function (origin, callback) {
+        // Allow requests with no origin (like Postman, mobile apps, or curl)
+        if (!origin) return callback(null, true);
+        
+        if (allowedOrigins.indexOf(origin) !== -1) {
+            return callback(null, true);
+        } else {
+            return callback(new Error('Not allowed by CORS'), false);
+        }
+    },
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization']
 }));
+
+// Express wildcard route to catch and pass preflight OPTIONS checks cleanly
+app.options('*', cors());
 
 app.post('/getHolidayOptions', extractIntent, getUnifiedResult);
 
