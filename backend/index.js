@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
-import { extractIntent } from './endpoint/intentExtraction.js';
-import { getUnifiedResult } from './endpoint/getUnifiedResult.js';
+import {extractIntent} from './endpoint/intentExtraction.js';
+import {getUnifiedResult} from './endpoint/getUnifiedResult.js';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -10,19 +10,21 @@ const app = express();
 
 app.use(express.json());
 
-// FIXED FOR SECURITY & CORS
+// Allow your eventual frontend Vercel URL
 app.use(cors({
-    origin: 'https://your-frontend-app.vercel.app', // Replace with your actual Vercel URL later
+    origin: ['http://localhost:5173', 'http://localhost:3000'], // We will add production URL here later
     credentials: true
 }));
 
 app.post('/getHolidayOptions', extractIntent, getUnifiedResult);
 
-// FIXED FOR RENDER: Always listen on a port in production
-const PORT = process.env.PORT || 6000;
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-});
+// ONLY listen on port when running locally (Vercel bypasses this)
+if (process.env.NODE_ENV !== 'production') {
+    const PORT = process.env.PORT || 6000;
+    app.listen(PORT, () => {
+        console.log(`Server running on port ${PORT}`);
+    });
+}
 
-// You can keep or remove the export line, Render will ignore it
+// CRITICAL FOR VERCEL
 export default app;
