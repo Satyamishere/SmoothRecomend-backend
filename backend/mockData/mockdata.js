@@ -114,7 +114,7 @@ export const hotels = [
   },
   { 
     name: "Bangalore Tech Hub Stay", 
-    city: "bangalore",
+    city: "banglore",
     pricePerNight: 2900, 
     nearMetro: true, 
     rating: 4.1,
@@ -327,7 +327,7 @@ export let activities = [
   // BANGALORE
   { 
     name: "Tech Campus Tour & Innovation Hub", 
-    location: "bangalore",
+    location: "banglore",
     tags: ["technology", "learning", "sightseeing"], 
     price: 500,
     duration: "2.5 hours",
@@ -335,7 +335,7 @@ export let activities = [
   },
   { 
     name: "Cubbon Park Nature Walk", 
-    location: "bangalore",
+    location: "banglore",
     tags: ["nature", "fitness", "relaxation"], 
     price: 0,
     duration: "2 hours",
@@ -343,7 +343,7 @@ export let activities = [
   },
   { 
     name: "Bangalore Fort & Vidhana Soudha Heritage Tour", 
-    location: "bangalore",
+    location: "banglore",
     tags: ["sightseeing", "history", "culture"], 
     price: 400,
     duration: "2.5 hours",
@@ -351,7 +351,7 @@ export let activities = [
   },
   { 
     name: "Coffee Plantation Visit Near Bangalore", 
-    location: "bangalore",
+    location: "banglore",
     tags: ["nature", "food", "learning"], 
     price: 1000,
     duration: "4 hours",
@@ -359,7 +359,7 @@ export let activities = [
   },
   { 
     name: "Nightlife & Craft Beer Tour", 
-    location: "bangalore",
+    location: "banglore",
     tags: ["food", "entertainment", "culture"], 
     price: 1500,
     duration: "3 hours",
@@ -524,7 +524,7 @@ export const destinations = {
     timezone: "IST",
     currency: "INR"
   },
-  "Bangalore": {
+  "Banglore": {
     bestMonths: ["September", "October", "November", "December", "January"],
     weather: "Moderate",
     timezone: "IST",
