@@ -209,11 +209,18 @@ Return ONLY valid JSON.
       };
       if (intent.origin) {
         const key = intent.origin.toLowerCase();
-        intent.origin = iataMap[key] || intent.origin.toUpperCase();
+        intent.origin_iata = iataMap[key] || intent.origin.toUpperCase();
+        intent.origin_city = key;
       }
       if (intent.destination) {
-        const key = intent.destination.toLowerCase();
-        intent.destination = iataMap[key] || intent.destination.toUpperCase();
+        const originalDest = intent.destination;
+        const key = String(intent.destination).toLowerCase();
+        // preserve original textual city for downstream matching
+        intent.destination_city = key;
+        // set IATA code (or uppercase original if not found)
+        intent.destination_iata = iataMap[key] || String(intent.destination).toUpperCase();
+        // keep legacy `destination` field as the IATA code for services that expect it
+        intent.destination = intent.destination_iata;
       }
 
       const dateMatch = textLower.match(/on\s+(\d{1,2})\s+([A-Za-z]+)/i);
